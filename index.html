@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <header>
-      <div class="logo">Opportunities Analytics Dashboard</div>
+      <div class="logo">CRM Analytics Dashboard</div>
       <div class="date-filter">
         <span>Date Range:</span>
         <select id="dateRange">
@@ -53,6 +53,16 @@
       </div>
     </div>
 
+    <!-- New Full Width Trend Chart -->
+    <div class="full-width-chart">
+      <div class="chart-container">
+        <h2>Opportunity Trends Over Time</h2>
+        <div class="chart-wrapper">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
     <div class="charts-grid">
       <div class="chart-container">
         <h2>Pipeline Value by Category</h2>
@@ -62,7 +72,7 @@
       </div>
 
       <div class="chart-container">
-        <h2>Opportunities by Status</h2>
+        <h2>Opportunities by Status Stage</h2>
         <div class="chart-wrapper">
           <canvas id="stageChart"></canvas>
         </div>
@@ -76,13 +86,12 @@
       </div>
 
       <div class="chart-container">
-        <h2>Performance by Assigned User</h2>
+        <h2>Performance by Sales Person</h2>
         <div class="chart-wrapper">
-          <canvas id="userChart"></canvas>
+          <canvas id="salesPersonChart"></canvas>
         </div>
       </div>
     </div>
-
 
     <div class="table-container">
       <h2>Recent Opportunities</h2>
@@ -93,7 +102,7 @@
             <th>Date</th>
             <th>Customer</th>
             <th>Category</th>
-            <th>Assignee</th>
+            <th>Assigned To</th>
             <th>Status</th>
             <th>Age</th>
             <th>Amount</th>
@@ -105,7 +114,7 @@
             <td>23/01/2025</td>
             <td>Inghb</td>
             <td>Mid used</td>
-            <td>No. 4</td>
+            <td>Sarah Jones</td>
             <td><span class="status-badge status-stage-4">Stage 4</span></td>
             <td>20 days</td>
             <td>$81.6K</td>
@@ -115,7 +124,7 @@
             <td>21/01/2025</td>
             <td>Inghb</td>
             <td>Advent111</td>
-            <td>No. 3</td>
+            <td>David Chen</td>
             <td><span class="status-badge status-stage-3">Stage 3</span></td>
             <td>20 days</td>
             <td>$2.64K</td>
@@ -125,7 +134,7 @@
             <td>21/01/2025</td>
             <td>Inghb</td>
             <td>Advent111</td>
-            <td>No. 3</td>
+            <td>David Chen</td>
             <td><span class="status-badge status-stage-3">Stage 3</span></td>
             <td>20 days</td>
             <td>$100.00K</td>
@@ -135,7 +144,7 @@
             <td>19/01/2025</td>
             <td>Inghb</td>
             <td>Advent111</td>
-            <td>No. 3</td>
+            <td>David Chen</td>
             <td><span class="status-badge status-stage-3">Stage 3</span></td>
             <td>20 days</td>
             <td>$186.00K</td>
@@ -145,7 +154,7 @@
             <td>19/01/2025</td>
             <td>Inghb</td>
             <td>Advent111</td>
-            <td>No. 2</td>
+            <td>Maria Garcia</td>
             <td><span class="status-badge status-stage-2">Stage 2</span></td>
             <td>20 days</td>
             <td>$50.00K</td>
@@ -154,7 +163,7 @@
       </table>
     </div>
 
-    <!-- Developer Notes Section -->
+    <!-- Updated Developer Notes Section -->
     <div class="dev-notes-section">
       <h2>Developer Notes & Implementation Details</h2>
       <div class="dev-notes-content">
@@ -165,6 +174,7 @@
             <li>All charts are responsive and maintain aspect ratio</li>
             <li>Custom tooltips formatted for currency display</li>
             <li>Doughnut chart shows percentage distribution</li>
+            <li>New full-width trend chart with dual Y-axes</li>
           </ul>
         </div>
 
@@ -179,32 +189,25 @@
         </div>
 
         <div class="note-card">
-          <h3>📱 Responsive Behavior</h3>
+          <h3>🧮 Data Computation Methods</h3>
           <ul>
-            <li>Breakpoints: 992px (tablet), 768px (mobile)</li>
-            <li>Charts grid collapses to single column on mobile</li>
-            <li>KPI cards wrap appropriately on smaller screens</li>
-            <li>Table becomes horizontally scrollable on mobile</li>
+            <li><strong>Total Pipeline Value:</strong> SUM(All opportunity amounts) = $631.64K</li>
+            <li><strong>Active Opportunities:</strong> COUNT(Opportunities with status 1-4) = 9</li>
+            <li><strong>Average Deal Size:</strong> SUM(Amounts) / COUNT(Opportunities) = $70.18K</li>
+            <li><strong>Average Deal Age:</strong> AVG(Current Date - Creation Date) = 23 days</li>
+            <li><strong>Win Rate:</strong> (Won Opportunities / Total Closed) × 100 = 32%</li>
+            <li><strong>Trend Analysis:</strong> Monthly aggregation of pipeline value and count</li>
           </ul>
         </div>
 
         <div class="note-card">
-          <h3>🔧 Technical Notes</h3>
+          <h3>👥 Sales Person Analysis</h3>
           <ul>
-            <li>No external dependencies except Chart.js</li>
-            <li>Vanilla JavaScript - no frameworks required</li>
-            <li>All data is mock/static for demonstration</li>
-            <li>Easy to integrate with real API endpoints</li>
-          </ul>
-        </div>
-
-        <div class="note-card">
-          <h3>🚀 Deployment Notes</h3>
-          <ul>
-            <li>Optimized for Cloudflare Pages</li>
-            <li>All assets are self-contained</li>
-            <li>No server-side rendering required</li>
-            <li>Cache-friendly static files</li>
+            <li>Performance tracking by assigned sales representative</li>
+            <li>Pipeline value attribution to individual team members</li>
+            <li>Deal stage progression analysis per sales person</li>
+            <li>Win rate calculation at individual level</li>
+            <li>Average deal size comparison across team</li>
           </ul>
         </div>
       </div>

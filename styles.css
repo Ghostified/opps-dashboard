@@ -104,6 +104,36 @@ header {
   color: #e74c3c;
 }
 
+/* New Full Width Chart Section */
+.full-width-chart {
+  grid-column: 1 / -1;
+  margin-bottom: 30px;
+}
+
+.full-width-chart .chart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.full-width-chart .chart-container:hover {
+  transform: translateY(-2px);
+}
+
+.full-width-chart .chart-container h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: var(--dark);
+  text-align: center;
+}
+
+.full-width-chart .chart-wrapper {
+  position: relative;
+  height: 400px;
+}
+
 .charts-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -114,6 +144,10 @@ header {
 @media (max-width: 992px) {
   .charts-grid {
     grid-template-columns: 1fr;
+  }
+
+  .full-width-chart .chart-wrapper {
+    height: 350px;
   }
 }
 
@@ -138,62 +172,6 @@ header {
 .chart-wrapper {
   position: relative;
   height: 300px;
-}
-
-.alerts-section {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  margin-bottom: 30px;
-}
-
-.alerts-section h2 {
-  font-size: 18px;
-  margin-bottom: 15px;
-  color: var(--dark);
-}
-
-.alert-item {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--light-gray);
-  transition: background-color 0.2s ease;
-}
-
-.alert-item:hover {
-  background-color: var(--light-gray);
-}
-
-.alert-item:last-child {
-  border-bottom: none;
-}
-
-.alert-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-  flex-shrink: 0;
-}
-
-.alert-warning {
-  background-color: #fff3cd;
-  color: #856404;
-}
-
-.alert-success {
-  background-color: #d1ecf1;
-  color: #0c5460;
-}
-
-.alert-info {
-  background-color: #d1ecf1;
-  color: #0c5460;
 }
 
 .table-container {
@@ -314,6 +292,7 @@ tr:last-child td {
   padding: 6px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .note-card li:last-child {
@@ -327,6 +306,12 @@ tr:last-child td {
   display: inline-block;
   width: 1em;
   margin-left: -1em;
+}
+
+/* Data computation specific styles */
+.note-card li strong {
+  color: var(--dark);
+  font-weight: 600;
 }
 
 /* Responsive adjustments */
@@ -351,5 +336,13 @@ tr:last-child td {
 
   .kpi-value {
     font-size: 24px;
+  }
+
+  .full-width-chart .chart-wrapper {
+    height: 300px;
+  }
+
+  .full-width-chart .chart-container h2 {
+    font-size: 18px;
   }
 }

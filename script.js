@@ -5,6 +5,98 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeCharts() {
+    // New Full Width Trend Chart
+    const trendCtx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(trendCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            datasets: [
+                {
+                    label: 'Pipeline Value ($K)',
+                    data: [450, 520, 480, 610, 580, 630, 590, 680, 720, 631],
+                    borderColor: '#4361ee',
+                    backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y'
+                },
+                {
+                    label: 'Opportunity Count',
+                    data: [8, 10, 7, 12, 9, 11, 8, 14, 13, 9],
+                    borderColor: '#4cc9f0',
+                    backgroundColor: 'rgba(76, 201, 240, 0.1)',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y1'
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    type: 'linear',
+                    display: true,
+                    position: 'left',
+                    title: {
+                        display: true,
+                        text: 'Pipeline Value ($K)'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                },
+                y1: {
+                    type: 'linear',
+                    display: true,
+                    position: 'right',
+                    title: {
+                        display: true,
+                        text: 'Opportunity Count'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.dataset.label.includes('Value')) {
+                                label += '$' + context.parsed.y + 'K';
+                            } else {
+                                label += context.parsed.y;
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
     // Pipeline Value by Category Chart
     const categoryCtx = document.getElementById('categoryChart').getContext('2d');
     const categoryChart = new Chart(categoryCtx, {
@@ -121,26 +213,48 @@ function initializeCharts() {
         }
     });
     
-    // Performance by Assigned User Chart
-    const userCtx = document.getElementById('userChart').getContext('2d');
-    const userChart = new Chart(userCtx, {
+    // Sales Person Performance Chart
+    const salesPersonCtx = document.getElementById('salesPersonChart').getContext('2d');
+    const salesPersonChart = new Chart(salesPersonCtx, {
         type: 'bar',
         data: {
-            labels: ['User No. 3', 'User No. 2', 'User No. 4'],
+            labels: ['David Chen', 'Sarah Jones', 'Maria Garcia', 'Tom Wilson'],
             datasets: [{
                 label: 'Pipeline Value ($K)',
-                data: [389.53, 160.5, 81.6],
+                data: [389.53, 81.6, 160.5, 0],
                 backgroundColor: '#4361ee',
                 borderWidth: 0
+            }, {
+                label: 'Win Rate %',
+                data: [35, 45, 28, 0],
+                backgroundColor: '#4cc9f0',
+                borderWidth: 0,
+                type: 'line',
+                yAxisID: 'y1'
             }]
         },
         options: {
-            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: {
-                    beginAtZero: true
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Pipeline Value ($K)'
+                    }
+                },
+                y1: {
+                    position: 'right',
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Win Rate %'
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    }
                 }
             }
         }
@@ -148,10 +262,11 @@ function initializeCharts() {
     
     // Store chart references for potential updates
     window.crmCharts = {
+        trend: trendChart,
         category: categoryChart,
         stage: stageChart,
         age: ageChart,
-        user: userChart
+        salesPerson: salesPersonChart
     };
 }
 
@@ -162,7 +277,7 @@ function setupEventListeners() {
         dateRangeSelect.addEventListener('change', function() {
             console.log('Date range changed to:', this.value);
             // In a real application, this would trigger data reload
-            // simulateDataRefresh();
+            simulateDataRefresh();
         });
     }
     
@@ -183,10 +298,27 @@ function simulateDataRefresh() {
     console.log('Simulating data refresh...');
     // This would typically fetch new data from an API
     // and update the charts
+    
+    // Example of how we might update charts with new data
+    if (window.crmCharts && window.crmCharts.trend) {
+        // Simulate new trend data
+        const newTrendData = [460, 530, 490, 620, 590, 640, 600, 690, 730, 641];
+        window.crmCharts.trend.data.datasets[0].data = newTrendData;
+        window.crmCharts.trend.update();
+    }
 }
 
 // Export functions for potential use in browser console
 window.CRMAnalytics = {
     refreshData: simulateDataRefresh,
     getCharts: () => window.crmCharts
+};
+
+// KPI Calculation Formulas (for reference)
+window.KPIFormulas = {
+    totalPipelineValue: "SUM(All opportunity amounts)",
+    activeOpportunities: "COUNT(Opportunities with status 1-4)",
+    averageDealSize: "SUM(Amounts) / COUNT(Opportunities)",
+    averageDealAge: "AVG(Current Date - Creation Date)",
+    winRate: "(Won Opportunities / Total Closed) × 100"
 };
