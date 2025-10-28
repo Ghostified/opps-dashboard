@@ -141,14 +141,51 @@ header {
 
 .kpi-card h3 {
   font-size: 14px;
-  color: var(--gray);
   margin-bottom: 10px;
+  /* Default color, overridden by specific header classes below */
 }
 
-.kpi-value {
+.kpi-header-total {
+  color: var(--primary);
+  /* Color for Total Opportunities */
+}
+
+.kpi-header-active {
+  color: var(--success);
+  /* Color for Active Opportunities */
+}
+
+.kpi-header-closure {
+  color: var(--warning);
+  /* Color for Closure Rate */
+}
+
+.kpi-header-lost {
+  color: var(--danger);
+  /* Color for Lost Opportunities */
+}
+
+.kpi-header-won {
+  color: #2ecc71;
+  /* Different green for Won Opportunities */
+}
+
+.kpi-count {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 5px;
+  /* Space between count and value */
+  /* Color will be applied via JS/CSS classes like .count-lost, .count-won */
+}
+
+.kpi-value {
+  font-size: 16px;
+  /* Smaller font for value */
+  font-weight: 500;
+  color: var(--gray);
+  /* Muted color for value */
+  /* Optional: Italic or different style for value */
+  font-style: italic;
 }
 
 .kpi-trend {
@@ -446,31 +483,14 @@ tr:last-child td {
 }
 
 /* Color-coded KPI values */
-.kpi-value .count-total {
-  color: var(--primary);
-  /* Or another distinct color for total */
-}
-
-.kpi-value .count-active {
-  color: var(--success);
-  /* Or another distinct color for active */
-}
-
-.kpi-value .count-lost {
+.count-lost {
   color: var(--danger);
   /* Uses the --danger variable defined in :root */
 }
 
-.kpi-value .count-won {
+.count-won {
   color: var(--success);
   /* Uses the --success variable defined in :root */
-}
-
-.kpi-value .value-na {
-  color: var(--gray);
-  /* Uses the --gray variable for "N/A" text */
-  font-style: italic;
-  /* Optional: Makes "N/A" stand out slightly */
 }
 
 /* Responsive adjustments */
@@ -508,8 +528,12 @@ tr:last-child td {
     grid-template-columns: 1fr;
   }
 
-  .kpi-value {
+  .kpi-count {
     font-size: 24px;
+  }
+
+  .kpi-value {
+    font-size: 14px;
   }
 
   .full-width-chart .chart-wrapper {

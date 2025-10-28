@@ -26,29 +26,29 @@
       <!-- Opportunities KPIs -->
       <div class="kpi-cards">
         <div class="kpi-card">
-          <h3>Total Opportunities Created (YTD)</h3>
-          <div class="kpi-value" id="totalOppYtd">Count: 0, Value: N/A</div>
-          <div class="kpi-trend">Year to Date</div>
+          <h3 class="kpi-header-total">Total Opportunities Created (YTD)</h3>
+          <div class="kpi-count" id="totalOppYtdCount">Count: 0</div>
+          <div class="kpi-value" id="totalOppYtdValue">Value: N/A</div>
         </div>
         <div class="kpi-card">
-          <h3>Active Opportunities (Last 24hrs)</h3>
-          <div class="kpi-value" id="activeOpp24Hrs">Count: 0, Value: N/A</div>
-          <div class="kpi-trend">Created in last 24 hours</div>
+          <h3 class="kpi-header-active">Active Opportunities (Last 24hrs)</h3>
+          <div class="kpi-count" id="activeOpp24HrsCount">Count: 0</div>
+          <div class="kpi-value" id="activeOpp24HrsValue">Value: N/A</div>
         </div>
         <div class="kpi-card">
-          <h3>Lost Opportunities (Last 24hrs)</h3>
-          <div class="kpi-value" id="lostOpp24Hrs">Count: 0, Value: N/A</div>
-          <div class="kpi-trend trend-down">Opportunities lost in last 24 hours</div>
+          <h3 class="kpi-header-closure">Closure Rate (Last 24hrs)</h3>
+          <div class="kpi-count" id="closureRate24Hrs">0%</div>
+          <div class="kpi-value" id="closureRate24HrsValue">N/A (Rate)</div>
         </div>
         <div class="kpi-card">
-          <h3>Won Opportunities (Last 24hrs)</h3>
-          <div class="kpi-value" id="wonOpp24Hrs">Count: 0, Value: N/A</div>
-          <div class="kpi-trend trend-up">Opportunities won in last 24 hours</div>
+          <h3 class="kpi-header-lost">Lost Opportunities (Last 24hrs)</h3>
+          <div class="kpi-count" id="lostOpp24HrsCount">Count: 0</div>
+          <div class="kpi-value" id="lostOpp24HrsValue">Value: N/A</div>
         </div>
         <div class="kpi-card">
-          <h3>Closure Rate (Last 24hrs)</h3>
-          <div class="kpi-value" id="closureRate24Hrs">0%</div>
-          <div class="kpi-trend">Closed/Won vs Total (Last 24hrs)</div>
+          <h3 class="kpi-header-won">Won Opportunities (Last 24hrs)</h3>
+          <div class="kpi-count" id="wonOpp24HrsCount">Count: 0</div>
+          <div class="kpi-value" id="wonOpp24HrsValue">Value: N/A</div>
         </div>
       </div>
 
@@ -148,6 +148,7 @@
               <th>Age (Days)</th>
               <th>Products</th>
               <th>Services</th>
+              <th>Value</th>
             </tr>
           </thead>
           <tbody id="opportunitiesTableBody">
@@ -339,19 +340,20 @@
           <h3>🧮 Opportunities Data Computation Methods</h3>
           <ul>
             <li><strong>Total Opportunities Created (YTD):</strong> COUNT(Opportunities created between Jan 1st and
-              today's date) = <span id="calcTotalOppYtd">PLACEHOLDER</span>, Value: N/A (No monetary value in sample
-              payload)</li>
+              today's date) = <span id="calcTotalOppYtd">PLACEHOLDER</span>, SUM(Value of these opportunities) = <span
+                id="calcTotalOppYtdValue">PLACEHOLDER</span></li>
             <li><strong>Active Opportunities (Last 24hrs):</strong> COUNT(Opportunities created between now and 24 hours
-              ago) = <span id="calcActiveOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)
-            </li>
+              ago) = <span id="calcActiveOpp24Hrs">PLACEHOLDER</span>, SUM(Value of these opportunities) = <span
+                id="calcActiveOpp24HrsValue">PLACEHOLDER</span></li>
             <li><strong>Closure Rate (Last 24hrs):</strong> (COUNT(Opportunities with status 'Closed Won' in last 24hrs)
-              / COUNT(Total Opportunities in last 24hrs)) * 100 = <span id="calcClosureRate24Hrs">PLACEHOLDER</span>%
-            </li>
+              / COUNT(Total Opportunities in last 24hrs)) * 100 = <span id="calcClosureRate24Hrs">PLACEHOLDER</span>%,
+              Value: N/A (Rate)</li>
             <li><strong>Lost Opportunities (Last 24hrs):</strong> COUNT(Opportunities with status 'Lost' in last 24hrs)
-              = <span id="calcLostOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)</li>
+              = <span id="calcLostOpp24Hrs">PLACEHOLDER</span>, SUM(Value of these opportunities) = <span
+                id="calcLostOpp24HrsValue">PLACEHOLDER</span></li>
             <li><strong>Won Opportunities (Last 24hrs):</strong> COUNT(Opportunities with status 'Closed Won' in last
-              24hrs) = <span id="calcWonOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)
-            </li>
+              24hrs) = <span id="calcWonOpp24Hrs">PLACEHOLDER</span>, SUM(Value of these opportunities) = <span
+                id="calcWonOpp24HrsValue">PLACEHOLDER</span></li>
             <li><strong>Product Performance by Category:</strong> COUNT(Opportunities containing products in each
               category).</li>
             <li><strong>Service Performance by Category:</strong> COUNT(Opportunities containing services in each

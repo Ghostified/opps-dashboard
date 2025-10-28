@@ -1,4 +1,4 @@
-// Sample data structure based on the provided example
+// Sample data structure based on the provided example, now including a 'value' field
 const sampleOpportunityData = [
     {
         "customer_name": "Felicia Barbu",
@@ -37,7 +37,8 @@ const sampleOpportunityData = [
         "created_by": "Felicia",
         "assigned_to": "Sarah Jones",
         "Asset_Name": [],
-        "opportunity_number": "1757582582319x366241707678761000"
+        "opportunity_number": "1757582582319x366241707678761000",
+        "value": 100 // Example monetary value
     },
     // Add more sample data points as needed for testing
     {
@@ -77,7 +78,8 @@ const sampleOpportunityData = [
         "created_by": "Admin",
         "assigned_to": "David Chen",
         "Asset_Name": ["Asset1"],
-        "opportunity_number": "1757582582319x366241707678761001"
+        "opportunity_number": "1757582582319x366241707678761001",
+        "value": 300 // Example monetary value
     },
     {
         "customer_name": "Jane Smith",
@@ -105,7 +107,8 @@ const sampleOpportunityData = [
         "created_by": "Agent1",
         "assigned_to": "Maria Garcia",
         "Asset_Name": [],
-        "opportunity_number": "1757582582319x366241707678761002"
+        "opportunity_number": "1757582582319x366241707678761002",
+        "value": 250 // Example monetary value
     }
 ];
 
@@ -125,21 +128,21 @@ function setupTabNavigation() {
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             const tabId = button.getAttribute('data-tab');
-            
+
             // Remove active class from all buttons and contents
             tabButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(content => content.classList.remove('active'));
-            
+
             // Add active class to clicked button and corresponding content
             button.classList.add('active');
             document.getElementById(`${tabId}-tab`).classList.add('active');
-            
+
             // Reinitialize charts when switching tabs (for responsive adjustments)
             setTimeout(() => {
                 if (tabId === 'sales-orders') {
                     initializeSalesOrdersCharts();
                 } else {
-                    initializeOpportunitiesCharts(sampleOpportunityData); // Pass data when re-initializing
+                    initializeOpportunitiesCharts(sampleOpportunityData);
                 }
             }, 100);
         });
@@ -155,23 +158,19 @@ function initializeOpportunitiesCharts(data) {
     // --- Trend Chart ---
     const trendCtx = document.getElementById('trendChart');
     if (trendCtx && data) {
-        // Placeholder: Aggregate data by date (e.g., monthly count)
-        // For demo, using static data
-        const trendChart = new Chart(trendCtx.getContext('2d'), {
+        new Chart(trendCtx.getContext('2d'), {
             type: 'line',
-            data: { // Fixed: Added quotes around 'data'
+            data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [ // Fixed: Added quotes around 'datasets'
-                    {
-                        label: 'Opportunity Count',
-                        data: [8, 10, 7, 12, 9, 11, 8, 14, 13, 10, 12, 15], // Placeholder
-                        borderColor: '#3498db', // Changed color
-                        backgroundColor: 'rgba(52, 152, 219, 0.1)', // Changed color
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.4,
-                    }
-                ]
+                datasets: [{
+                    label: 'Opportunity Count',
+                    data: [8, 10, 7, 12, 9, 11, 8, 14, 13, 10, 12, 15],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
             },
             options: getTrendChartOptions('Opportunity Count')
         });
@@ -192,11 +191,11 @@ function initializeOpportunitiesCharts(data) {
 
         new Chart(productCategoryCtx.getContext('2d'), {
             type: 'doughnut',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
-                    data: values, // Fixed: Added missing 'data' key
-                    backgroundColor: ['#e74c3c', '#f39c12', '#2ecc71', '#9b59b6', '#1abc9c', '#34495e'], // New color scheme
+            data: {
+                labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: ['#e74c3c', '#f39c12', '#2ecc71', '#9b59b6', '#1abc9c', '#34495e'],
                     borderWidth: 1
                 }]
             },
@@ -219,11 +218,11 @@ function initializeOpportunitiesCharts(data) {
 
         new Chart(serviceCategoryCtx.getContext('2d'), {
             type: 'doughnut',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
-                    data: values, // Fixed: Added missing 'data' key
-                    backgroundColor: ['#e67e22', '#95a5a6', '#3498db', '#e74c3c', '#f1c40f', '#27ae60'], // New color scheme
+            data: {
+                labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: ['#e67e22', '#95a5a6', '#3498db', '#e74c3c', '#f1c40f', '#27ae60'],
                     borderWidth: 1
                 }]
             },
@@ -239,12 +238,12 @@ function initializeOpportunitiesCharts(data) {
 
         new Chart(svpCtx.getContext('2d'), {
             type: 'bar',
-            data: { // Fixed: Added quotes around 'data'
+            data: {
                 labels: ['Opportunities with Products', 'Opportunities with Services'],
-                datasets: [{ // Fixed: Added quotes around 'datasets'
+                datasets: [{
                     label: 'Count',
-                    data: [productsCount, servicesCount], // Fixed: Added missing 'data' key
-                    backgroundColor: ['#2ecc71', '#3498db'], // New colors
+                    data: [productsCount, servicesCount],
+                    backgroundColor: ['#2ecc71', '#3498db'],
                     borderWidth: 0
                 }]
             },
@@ -274,12 +273,12 @@ function initializeOpportunitiesCharts(data) {
 
         new Chart(stageCtx.getContext('2d'), {
             type: 'bar',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
+            data: {
+                labels,
+                datasets: [{
                     label: 'Opportunity Count',
-                    data: values, // Fixed: Added missing 'data' key
-                    backgroundColor: '#e74c3c', // New color
+                    data: values,
+                    backgroundColor: '#e74c3c',
                     borderWidth: 0
                 }]
             },
@@ -295,19 +294,18 @@ function initializeOpportunitiesCharts(data) {
             const person = opp.assigned_to || 'Unassigned';
             personCounts[person] = (personCounts[person] || 0) + 1;
         });
-        // Convert object to array of [person, count] pairs and sort by count (descending)
-        const sortedPersonEntries = Object.entries(personCounts).sort((a, b) => b[1] - a[1]); // Sort by count (index 1) descending
-        const labels = sortedPersonEntries.map(item => item[0]); // Extract sorted labels
-        const values = sortedPersonEntries.map(item => item[1]); // Extract sorted values
+        const sorted = Object.entries(personCounts).sort((a, b) => b[1] - a[1]);
+        const labels = sorted.map(item => item[0]);
+        const values = sorted.map(item => item[1]);
 
         new Chart(salesPersonCtx.getContext('2d'), {
             type: 'bar',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
+            data: {
+                labels,
+                datasets: [{
                     label: 'Opportunity Count',
-                    data: values, // Fixed: Added missing 'data' key, Use sorted values
-                    backgroundColor: '#9b59b6', // New color
+                    data: values,
+                    backgroundColor: '#9b59b6',
                     borderWidth: 0
                 }]
             },
@@ -325,19 +323,18 @@ function initializeOpportunitiesCharts(data) {
                 productCounts[name] = (productCounts[name] || 0) + 1;
             });
         });
-        // Sort and get top N
-        const sortedProducts = Object.entries(productCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-        const labels = sortedProducts.map(item => item[0]);
-        const values = sortedProducts.map(item => item[1]);
+        const sorted = Object.entries(productCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const labels = sorted.map(item => item[0]);
+        const values = sorted.map(item => item[1]);
 
         new Chart(topProductsCtx.getContext('2d'), {
             type: 'bar',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
+            data: {
+                labels,
+                datasets: [{
                     label: 'Occurrences',
-                    data: values, // Fixed: Added missing 'data' key
-                    backgroundColor: '#f39c12', // New color
+                    data: values,
+                    backgroundColor: '#f39c12',
                     borderWidth: 0
                 }]
             },
@@ -355,19 +352,18 @@ function initializeOpportunitiesCharts(data) {
                 serviceCounts[name] = (serviceCounts[name] || 0) + 1;
             });
         });
-        // Sort and get top N
-        const sortedServices = Object.entries(serviceCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-        const labels = sortedServices.map(item => item[0]);
-        const values = sortedServices.map(item => item[1]);
+        const sorted = Object.entries(serviceCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+        const labels = sorted.map(item => item[0]);
+        const values = sorted.map(item => item[1]);
 
         new Chart(topServicesCtx.getContext('2d'), {
             type: 'bar',
-            data: { // Fixed: Added quotes around 'data'
-                labels: labels,
-                datasets: [{ // Fixed: Added quotes around 'datasets'
+            data: {
+                labels,
+                datasets: [{
                     label: 'Occurrences',
-                    data: values, // Fixed: Added missing 'data' key
-                    backgroundColor: '#1abc9c', // New color
+                    data: values,
+                    backgroundColor: '#1abc9c',
                     borderWidth: 0
                 }]
             },
@@ -377,17 +373,16 @@ function initializeOpportunitiesCharts(data) {
 }
 
 function initializeSalesOrdersCharts() {
-    // Existing sales orders charts code...
     const ordersTrendCtx = document.getElementById('ordersTrendChart');
     if (ordersTrendCtx) {
-        const ordersTrendChart = new Chart(ordersTrendCtx.getContext('2d'), {
+        new Chart(ordersTrendCtx.getContext('2d'), {
             type: 'line',
-            data: { // Fixed: Added quotes around 'data'
+            data: {
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-                datasets: [ // Fixed: Added quotes around 'datasets'
+                datasets: [
                     {
                         label: 'Order Value ($K)',
-                        data: [42, 48, 55, 62, 58, 65, 72, 68, 75, 82], // Fixed: Added missing 'data' key
+                        data: [42, 48, 55, 62, 58, 65, 72, 68, 75, 82],
                         borderColor: '#4361ee',
                         backgroundColor: 'rgba(67, 97, 238, 0.1)',
                         borderWidth: 3,
@@ -397,7 +392,7 @@ function initializeSalesOrdersCharts() {
                     },
                     {
                         label: 'Order Count',
-                        data: [35, 38, 42, 45, 41, 47, 52, 49, 54, 60], // Fixed: Added missing 'data' key
+                        data: [35, 38, 42, 45, 41, 47, 52, 49, 54, 60],
                         borderColor: '#4cc9f0',
                         backgroundColor: 'rgba(76, 201, 240, 0.1)',
                         borderWidth: 2,
@@ -411,10 +406,8 @@ function initializeSalesOrdersCharts() {
             options: getTrendChartOptions('Order Value ($K)', 'Order Count')
         });
     }
-
-    // Add other sales orders charts similarly if needed, or keep them as placeholders
-    // ... (other charts for sales orders remain unchanged or as placeholders)
 }
+
 
 // --- KPI Update Function ---
 function updateOpportunityKPIs(data) {
@@ -425,31 +418,50 @@ function updateOpportunityKPIs(data) {
     const last24Hours = new Date(now.getTime() - (24 * 60 * 60 * 1000));
 
     // Total Opportunities Created (YTD) - Uses YTD filter
-    const totalYTD = data.filter(opp => new Date(opp.date_created) >= startOfYear).length;
-    document.getElementById('totalOppYtd').innerHTML = `Count: <span class="count-total">${totalYTD}</span>, Value: <span class="value-na">N/A</span>`;
-    document.getElementById('calcTotalOppYtd').textContent = totalYTD;
+    const totalYTDData = data.filter(opp => new Date(opp.date_created) >= startOfYear);
+    const totalYTDCount = totalYTDData.length;
+    const totalYTDValue = totalYTDData.reduce((sum, opp) => sum + (opp.value || 0), 0);
+    document.getElementById('totalOppYtdCount').textContent = `Count: ${totalYTDCount}`;
+    document.getElementById('totalOppYtdValue').textContent = `Value: $${totalYTDValue}`;
+    document.getElementById('calcTotalOppYtd').textContent = totalYTDCount;
+    document.getElementById('calcTotalOppYtdValue').textContent = `$${totalYTDValue}`;
 
     // Active Opportunities (Last 24hrs) - Uses 24hr filter
-    const active24Hrs = data.filter(opp => new Date(opp.date_created) >= last24Hours).length;
-    document.getElementById('activeOpp24Hrs').innerHTML = `Count: <span class="count-active">${active24Hrs}</span>, Value: <span class="value-na">N/A</span>`;
-    document.getElementById('calcActiveOpp24Hrs').textContent = active24Hrs;
+    const active24HrsData = data.filter(opp => new Date(opp.date_created) >= last24Hours);
+    const active24HrsCount = active24HrsData.length;
+    const active24HrsValue = active24HrsData.reduce((sum, opp) => sum + (opp.value || 0), 0);
+    document.getElementById('activeOpp24HrsCount').textContent = `Count: ${active24HrsCount}`;
+    document.getElementById('activeOpp24HrsValue').textContent = `Value: $${active24HrsValue}`;
+    document.getElementById('calcActiveOpp24Hrs').textContent = active24HrsCount;
+    document.getElementById('calcActiveOpp24HrsValue').textContent = `$${active24HrsValue}`;
 
     // Closure Rate (Last 24hrs) - Uses 24hr filter
-    const total24Hrs = data.filter(opp => new Date(opp.date_created) >= last24Hours).length;
-    const closedWon24Hrs = data.filter(opp => (opp.status.toLowerCase().includes('closed') && opp.status.toLowerCase().includes('won')) && new Date(opp.date_created) >= last24Hours).length;
-    const closureRate24Hrs = total24Hrs > 0 ? ((closedWon24Hrs / total24Hrs) * 100).toFixed(2) : 0;
+    const total24HrsData = data.filter(opp => new Date(opp.date_created) >= last24Hours);
+    const total24HrsCount = total24HrsData.length;
+    const closedWon24HrsData = data.filter(opp => (opp.status.toLowerCase().includes('closed') && opp.status.toLowerCase().includes('won')) && new Date(opp.date_created) >= last24Hours);
+    const closedWon24HrsCount = closedWon24HrsData.length;
+    const closureRate24Hrs = total24HrsCount > 0 ? ((closedWon24HrsCount / total24HrsCount) * 100).toFixed(2) : 0;
     document.getElementById('closureRate24Hrs').textContent = `${closureRate24Hrs}%`;
+    document.getElementById('closureRate24HrsValue').textContent = 'N/A (Rate)'; // Value is not applicable for rate
     document.getElementById('calcClosureRate24Hrs').textContent = closureRate24Hrs;
 
     // Lost Opportunities (Last 24hrs) - Uses 24hr filter
-    const lost24Hrs = data.filter(opp => opp.status.toLowerCase().includes('lost') && new Date(opp.date_created) >= last24Hours).length;
-    document.getElementById('lostOpp24Hrs').innerHTML = `Count: <span class="count-lost">${lost24Hrs}</span>, Value: <span class="value-na">N/A</span>`;
-    document.getElementById('calcLostOpp24Hrs').textContent = lost24Hrs;
+    const lost24HrsData = data.filter(opp => opp.status.toLowerCase().includes('lost') && new Date(opp.date_created) >= last24Hours);
+    const lost24HrsCount = lost24HrsData.length;
+    const lost24HrsValue = lost24HrsData.reduce((sum, opp) => sum + (opp.value || 0), 0);
+    document.getElementById('lostOpp24HrsCount').textContent = `Count: ${lost24HrsCount}`;
+    document.getElementById('lostOpp24HrsValue').textContent = `Value: $${lost24HrsValue}`;
+    document.getElementById('calcLostOpp24Hrs').textContent = lost24HrsCount;
+    document.getElementById('calcLostOpp24HrsValue').textContent = `$${lost24HrsValue}`;
 
     // Won Opportunities (Last 24hrs) - Uses 24hr filter
-    const won24Hrs = closedWon24Hrs; // Reuse the calculation from closure rate
-    document.getElementById('wonOpp24Hrs').innerHTML = `Count: <span class="count-won">${won24Hrs}</span>, Value: <span class="value-na">N/A</span>`;
-    document.getElementById('calcWonOpp24Hrs').textContent = won24Hrs;
+    const won24HrsData = closedWon24HrsData; // Reuse the calculation from closure rate
+    const won24HrsCount = won24HrsData.length;
+    const won24HrsValue = won24HrsData.reduce((sum, opp) => sum + (opp.value || 0), 0);
+    document.getElementById('wonOpp24HrsCount').textContent = `Count: ${won24HrsCount}`;
+    document.getElementById('wonOpp24HrsValue').textContent = `Value: $${won24HrsValue}`;
+    document.getElementById('calcWonOpp24Hrs').textContent = won24HrsCount;
+    document.getElementById('calcWonOpp24HrsValue').textContent = `$${won24HrsValue}`;
 
     // Average Opportunity Age (YTD) - Removed as per request
     // Average Deal Size - Removed as per request
@@ -476,6 +488,7 @@ function populateOpportunitiesTable(data) {
             <td>${ageInDays}</td>
             <td>${opp.product_details.length}</td>
             <td>${opp.services_details.length}</td>
+            <td>$${opp.value || 'N/A'}</td> <!-- Added Value column -->
         `;
         tableBody.appendChild(row);
     });
