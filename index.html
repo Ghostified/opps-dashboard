@@ -27,28 +27,28 @@
       <div class="kpi-cards">
         <div class="kpi-card">
           <h3>Total Opportunities Created (YTD)</h3>
-          <div class="kpi-value" id="totalOppYtd">0</div>
+          <div class="kpi-value" id="totalOppYtd">Count: 0, Value: N/A</div>
           <div class="kpi-trend">Year to Date</div>
         </div>
         <div class="kpi-card">
           <h3>Active Opportunities (Last 24hrs)</h3>
-          <div class="kpi-value" id="activeOpp24Hrs">0</div>
+          <div class="kpi-value" id="activeOpp24Hrs">Count: 0, Value: N/A</div>
           <div class="kpi-trend">Created in last 24 hours</div>
         </div>
         <div class="kpi-card">
-          <h3>Closure Rate</h3>
-          <div class="kpi-value" id="closureRate">0%</div>
-          <div class="kpi-trend">Closed/Won vs Total</div>
+          <h3>Lost Opportunities (Last 24hrs)</h3>
+          <div class="kpi-value" id="lostOpp24Hrs">Count: 0, Value: N/A</div>
+          <div class="kpi-trend trend-down">Opportunities lost in last 24 hours</div>
         </div>
         <div class="kpi-card">
-          <h3>Average Opportunity Age</h3>
-          <div class="kpi-value" id="avgAgeYtd">0 days</div>
-          <div class="kpi-trend">Average age of all opportunities YTD</div>
+          <h3>Won Opportunities (Last 24hrs)</h3>
+          <div class="kpi-value" id="wonOpp24Hrs">Count: 0, Value: N/A</div>
+          <div class="kpi-trend trend-up">Opportunities won in last 24 hours</div>
         </div>
         <div class="kpi-card">
-          <h3>Average Deal Size</h3>
-          <div class="kpi-value" id="avgDealSize">N/A</div>
-          <div class="kpi-trend">Avg. Products & Services per Opportunity</div>
+          <h3>Closure Rate (Last 24hrs)</h3>
+          <div class="kpi-value" id="closureRate24Hrs">0%</div>
+          <div class="kpi-trend">Closed/Won vs Total (Last 24hrs)</div>
         </div>
       </div>
 
@@ -157,9 +157,9 @@
       </div>
     </div>
 
-    <!-- Sales Orders Tab Content (remains unchanged for now) -->
+    <!-- Sales Orders Tab Content (Restored to Original) -->
     <div id="sales-orders-tab" class="tab-content">
-      <!-- Sales Orders content remains as per original -->
+      <!-- Sales Orders KPIs -->
       <div class="kpi-cards">
         <div class="kpi-card">
           <h3>Total Order Value</h3>
@@ -188,6 +188,7 @@
         </div>
       </div>
 
+      <!-- Sales Orders Filter -->
       <div class="filter-section">
         <span>Date Range:</span>
         <select id="ordersDateRange">
@@ -199,6 +200,7 @@
         </select>
       </div>
 
+      <!-- Sales Orders Full Width Trend Chart -->
       <div class="full-width-chart">
         <div class="chart-container">
           <h2>Sales Order Trends</h2>
@@ -208,6 +210,7 @@
         </div>
       </div>
 
+      <!-- Sales Orders Charts Grid -->
       <div class="charts-grid">
         <div class="chart-container">
           <h2>Orders by Status</h2>
@@ -240,6 +243,7 @@
         </div>
       </div>
 
+      <!-- Sales Orders Table -->
       <div class="table-container">
         <h2>Recent Sales Orders</h2>
         <table>
@@ -335,15 +339,19 @@
           <h3>🧮 Opportunities Data Computation Methods</h3>
           <ul>
             <li><strong>Total Opportunities Created (YTD):</strong> COUNT(Opportunities created between Jan 1st and
-              today's date) = <span id="calcTotalOppYtd">PLACEHOLDER</span></li>
+              today's date) = <span id="calcTotalOppYtd">PLACEHOLDER</span>, Value: N/A (No monetary value in sample
+              payload)</li>
             <li><strong>Active Opportunities (Last 24hrs):</strong> COUNT(Opportunities created between now and 24 hours
-              ago) = <span id="calcActiveOpp24Hrs">PLACEHOLDER</span></li>
-            <li><strong>Closure Rate:</strong> (COUNT(Opportunities with status 'Closed Won' YTD) / COUNT(Total
-              Opportunities YTD)) * 100 = <span id="calcClosureRate">PLACEHOLDER</span>%</li>
-            <li><strong>Average Opportunity Age (YTD):</strong> AVG(Opportunity Age in Days for all opportunities YTD) =
-              <span id="calcAvgAgeYtd">PLACEHOLDER</span> days</li>
-            <li><strong>Average Deal Size:</strong> AVG(Total Products + Total Services per Opportunity YTD) = <span
-                id="calcAvgDealSize">PLACEHOLDER</span></li>
+              ago) = <span id="calcActiveOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)
+            </li>
+            <li><strong>Closure Rate (Last 24hrs):</strong> (COUNT(Opportunities with status 'Closed Won' in last 24hrs)
+              / COUNT(Total Opportunities in last 24hrs)) * 100 = <span id="calcClosureRate24Hrs">PLACEHOLDER</span>%
+            </li>
+            <li><strong>Lost Opportunities (Last 24hrs):</strong> COUNT(Opportunities with status 'Lost' in last 24hrs)
+              = <span id="calcLostOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)</li>
+            <li><strong>Won Opportunities (Last 24hrs):</strong> COUNT(Opportunities with status 'Closed Won' in last
+              24hrs) = <span id="calcWonOpp24Hrs">PLACEHOLDER</span>, Value: N/A (No monetary value in sample payload)
+            </li>
             <li><strong>Product Performance by Category:</strong> COUNT(Opportunities containing products in each
               category).</li>
             <li><strong>Service Performance by Category:</strong> COUNT(Opportunities containing services in each

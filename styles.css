@@ -197,7 +197,8 @@ header {
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* Adjusted for responsiveness */
   gap: 25px;
   margin-bottom: 30px;
 }
@@ -205,6 +206,7 @@ header {
 @media (max-width: 992px) {
   .charts-grid {
     grid-template-columns: 1fr;
+    /* Stack charts in a single column on smaller screens */
   }
 
   .full-width-chart .chart-wrapper {
@@ -441,6 +443,34 @@ tr:last-child td {
 .note-card li strong {
   color: var(--dark);
   font-weight: 600;
+}
+
+/* Color-coded KPI values */
+.kpi-value .count-total {
+  color: var(--primary);
+  /* Or another distinct color for total */
+}
+
+.kpi-value .count-active {
+  color: var(--success);
+  /* Or another distinct color for active */
+}
+
+.kpi-value .count-lost {
+  color: var(--danger);
+  /* Uses the --danger variable defined in :root */
+}
+
+.kpi-value .count-won {
+  color: var(--success);
+  /* Uses the --success variable defined in :root */
+}
+
+.kpi-value .value-na {
+  color: var(--gray);
+  /* Uses the --gray variable for "N/A" text */
+  font-style: italic;
+  /* Optional: Makes "N/A" stand out slightly */
 }
 
 /* Responsive adjustments */
