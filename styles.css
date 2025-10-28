@@ -313,28 +313,39 @@ tr:last-child td {
   font-weight: 600;
 }
 
-/* Opportunity Status Badges */
-.status-stage-4 {
+/* Opportunity Status Badges - Updated to handle dynamic status */
+.status-stage-closed {
   background-color: #e7f7ef;
   color: #2ecc71;
 }
 
-.status-stage-3 {
+.status-stage-won {
+  background-color: #e7f7ef;
+  color: #2ecc71;
+}
+
+.status-stage-open {
   background-color: #e8f4fd;
   color: #3498db;
 }
 
-.status-stage-2 {
+.status-stage-pending {
   background-color: #fff4e6;
   color: #f39c12;
 }
 
-.status-stage-1 {
+.status-stage-lost {
   background-color: #fbeeee;
   color: #e74c3c;
 }
 
-/* Sales Order Status Badges */
+.status-stage-unknown {
+  /* For cases where status is missing or not recognized */
+  background-color: #e9ecef;
+  color: var(--dark);
+}
+
+/* Sales Order Status Badges (remains unchanged) */
 .status-delivered {
   background-color: #e7f7ef;
   color: #2ecc71;
